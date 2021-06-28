@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { UserProvider } from "./providers/Auth";
 
-function App() {
+import { Login } from "./pages/Login";
+import { Home } from "./pages/Home";
+import GlobalStyle from "./styles/global";
+import Repos from "./pages/Repos";
+import Following from "./pages/Following";
+import Followers from "./pages/Followers";
+import { Follow } from "./pages/follow";
+import { FollowProvider } from "./providers/follow";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <UserProvider>
+          <FollowProvider>
+            <Route path="/" exact component={Login} />
+            <Route path="/home" component={Home} />
+            <Route path="/repos" component={Repos} />
+            <Route path="/following" component={Following} />
+            <Route path="/followers" component={Followers} />
+            <Route path="/follow" component={Follow} />
+          </FollowProvider>
+        </UserProvider>
+      </BrowserRouter>
+    </>
   );
-}
+};
 
 export default App;
